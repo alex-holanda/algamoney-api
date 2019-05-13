@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    password: root
+    url: jdbc:mysql://localhost/algamoneyapi?createDatabaseIfNotExist=true&useSSL=false
+    username: root
+  jackson:
+    date-format: yyyy-MM-dd
+    deserialization:
+      fail-on-unknown-properties: true
+  jpa:
+    database: MYSQL
+    show-sql: true
