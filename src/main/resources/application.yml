@@ -2,9 +2,9 @@ spring:
   profiles:
     active: basic-security
   datasource:
-    password: application
     url: jdbc:mysql://localhost/algamoneyapi?createDatabaseIfNotExist=true&useSSL=false
     username: application
+    password: application
   jackson:
     date-format: yyyy-MM-dd
     deserialization:
