@@ -99,11 +99,11 @@ public class Lancamento {
 		this.observacao = observacao;
 	}
 
-	public TipoLancamento getTipoLancamento() {
+	public TipoLancamento getTipo() {
 		return tipo;
 	}
 
-	public void setTipoLancamento(TipoLancamento tipo) {
+	public void setTipo(TipoLancamento tipo) {
 		this.tipo = tipo;
 	}
 
