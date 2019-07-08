@@ -1,6 +1,7 @@
 spring:
   profiles:
-    active: basic-security
+    active: oauth-security
+#    active: basic-security
   datasource:
     url: jdbc:mysql://localhost/algamoneyapi?createDatabaseIfNotExist=true&useSSL=false
     username: root
