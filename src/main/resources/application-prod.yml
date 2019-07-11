@@ -5,3 +5,6 @@ spring:
     url: jdbc:mysql://m6ztl17yomaj2gtc:nordsmho6jxlwx0n@mgs0iaapcj3p9srz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/qfi62dk073k59ve9
     username: m6ztl17yomaj2gtc
     password: nordsmho6jxlwx0n
+
+flyway:
+  enabled: false
