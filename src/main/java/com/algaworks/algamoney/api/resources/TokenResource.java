@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/tokens")
+@RequestMapping("/token")
 public class TokenResource {
 
 	@DeleteMapping("/revoke")
@@ -18,7 +18,7 @@ public class TokenResource {
 		Cookie cookie = new Cookie("refreshToken", null);
 		
 		cookie.setHttpOnly(true);
-		cookie.setSecure(false); //TODO : mudar prod
+		cookie.setSecure(true); //TODO : mudar prod para true
 		cookie.setPath(request.getContextPath() + "/oauth/token");
 		cookie.setMaxAge(0);
 		
