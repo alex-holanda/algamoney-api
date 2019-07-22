@@ -1,6 +1,7 @@
 package com.algaworks.algamoney.api.resources;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -36,9 +37,9 @@ public class CategoriaResource {
 	@GetMapping("/{codigo}")
 	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and #oauth2.hasScope('read')")
 	public ResponseEntity<Categoria> buscarPeloCodigo(@PathVariable Long codigo) {
-		Categoria categoria = categoriaRepository.findOne(codigo);
+		Optional<Categoria> categoria = categoriaRepository.findById(codigo);
 		
-		return categoria != null ? ResponseEntity.status(HttpStatus.OK).body(categoria)
+		return !categoria.isPresent() ? ResponseEntity.status(HttpStatus.OK).body(categoria.get())
 					: ResponseEntity.notFound().build();
 	}
 	
@@ -53,7 +54,7 @@ public class CategoriaResource {
 	
 	@DeleteMapping("/{codigo}")
 	public ResponseEntity<Void> remover(@PathVariable Long codigo) {
-		categoriaRepository.delete(codigo);
+		categoriaRepository.deleteById(codigo);
 		
 		return ResponseEntity.noContent().build();
 	}

@@ -1,5 +1,7 @@
 package com.algaworks.algamoney.api.resources;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,9 +43,9 @@ public class PessoaResource {
 	@GetMapping("/{codigo}")
 	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_PESSOA') and #oauth2.hasScope('read')")
 	public ResponseEntity<Pessoa> buscarPeloCodigo(@PathVariable Long codigo) {
-		Pessoa pessoa = pessoaRepository.findOne(codigo);
+		Optional<Pessoa> pessoa = pessoaRepository.findById(codigo);
 		
-		return pessoa != null ? ResponseEntity.ok(pessoa) : ResponseEntity.notFound().build();
+		return !pessoa.isPresent() ? ResponseEntity.ok(pessoa.get()) : ResponseEntity.notFound().build();
 	}
 	
 	@PostMapping
@@ -58,7 +60,7 @@ public class PessoaResource {
 	@DeleteMapping("/{codigo}")
 	@PreAuthorize("hasAuthority('ROLE_REMOVER_PESSOA') and #oauth2.hasScope('write')")
 	public ResponseEntity<Void> remover(@PathVariable Long codigo) {
-		pessoaRepository.delete(codigo);
+		pessoaRepository.deleteById(codigo);
 		
 		return ResponseEntity.noContent().build();
 	}

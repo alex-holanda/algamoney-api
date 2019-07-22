@@ -18,7 +18,7 @@ public class TokenResource {
 		Cookie cookie = new Cookie("refreshToken", null);
 		
 		cookie.setHttpOnly(true);
-		cookie.setSecure(true); //TODO : mudar prod para true
+		cookie.setSecure(false); //TODO : mudar para true em prod
 		cookie.setPath(request.getContextPath() + "/oauth/token");
 		cookie.setMaxAge(0);
 		

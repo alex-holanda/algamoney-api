@@ -1,5 +1,7 @@
 package com.algaworks.algamoney.api.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,16 +23,12 @@ public class LancamentoService {
 	
 	public Lancamento salvar(Lancamento lancamento) {
 		
-		Pessoa pessoa = pessoaRepository.findOne(lancamento.getPessoa().getCodigo());
+		Pessoa pessoa = pessoaRepository.getOne(lancamento.getPessoa().getCodigo());
 		if (pessoa == null || pessoa.isInativo()) {
 			throw new PessoaInexistenteEOuInativaException();
 		}
 		
 		return lancamentoRepository.save(lancamento);
-	}
-
-	public void deletar(Long codigo) {
-		lancamentoRepository.delete(codigo);
 	}
 
 	public Lancamento atualizar(Long codigo, Lancamento lancamento) {
@@ -49,7 +47,7 @@ public class LancamentoService {
 		Pessoa pessoa = null;
 		
 		if (lancamento.getPessoa().getCodigo() != null) {
-			pessoa = pessoaRepository.findOne(lancamento.getPessoa().getCodigo());
+			pessoa = pessoaRepository.getOne(lancamento.getPessoa().getCodigo());
 		}
 		
 		if (pessoa == null || pessoa.isInativo()) {
@@ -58,12 +56,12 @@ public class LancamentoService {
 	}
 
 	private Lancamento buscarLancamentoExistente(Long codigo) {
-		Lancamento lancamentoSalvo = lancamentoRepository.findOne(codigo);
+		Optional<Lancamento> lancamentoSalvo = lancamentoRepository.findById(codigo);
 		
-		if (lancamentoSalvo == null) {
+		if (!lancamentoSalvo.isPresent()) {
 			throw new IllegalArgumentException();
 		}
 		
-		return lancamentoSalvo;
+		return lancamentoSalvo.get();
 	}
 }

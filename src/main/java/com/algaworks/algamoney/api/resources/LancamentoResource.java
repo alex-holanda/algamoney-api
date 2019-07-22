@@ -1,5 +1,7 @@
 package com.algaworks.algamoney.api.resources;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,9 +50,9 @@ public class LancamentoResource {
 	@GetMapping("/{codigo}")
 	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO') and #oauth2.hasScope('read')")
 	public ResponseEntity<Lancamento> buscarPeloCodigo(@PathVariable Long codigo) {
-		Lancamento lancamento= lancamentoRepository.findOne(codigo);
+		Optional<Lancamento> lancamento= lancamentoRepository.findById(codigo);
 		
-		return lancamento != null ? ResponseEntity.ok(lancamento) : ResponseEntity.notFound().build();
+		return !lancamento.isPresent() ? ResponseEntity.ok(lancamento.get()) : ResponseEntity.notFound().build();
 	}
 	
 	@PostMapping
@@ -65,7 +67,7 @@ public class LancamentoResource {
 	@PreAuthorize("hasAuthority('ROLE_REMOVER_LANCAMENTO') and #oauth2.hasScope('write')")
 	public ResponseEntity<Void> remover(@PathVariable Long codigo) {
 		
-		lancamentoService.deletar(codigo);
+		lancamentoRepository.deleteById(codigo);
 		
 		return ResponseEntity.noContent().build();
 	}
