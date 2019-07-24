@@ -44,8 +44,7 @@ public class PessoaResource {
 	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_PESSOA') and #oauth2.hasScope('read')")
 	public ResponseEntity<Pessoa> buscarPeloCodigo(@PathVariable Long codigo) {
 		Optional<Pessoa> pessoa = pessoaRepository.findById(codigo);
-		System.out.println("Código: " + codigo);
-		System.out.println("Nome: " + pessoa.get().getNome());
+		
 		return pessoa.isPresent() ? ResponseEntity.ok(pessoa.get()) : ResponseEntity.notFound().build();
 	}
 	
@@ -53,7 +52,7 @@ public class PessoaResource {
 	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_PESSOA') and #oauth2.hasScope('write')")
 	public ResponseEntity<Pessoa> criar(@Valid @RequestBody Pessoa pessoa) {
 		
-		pessoa = pessoaRepository.save(pessoa);
+		pessoa = pessoaService.salvar(pessoa);
 		
 		return ResponseEntity.created(AdicionarLocation.location(pessoa.getCodigo())).body(pessoa);
 	}
