@@ -21,6 +21,10 @@
 		
 		<spring-security-oauth2.version>2.3.6.RELEASE</spring-security-oauth2.version>
 		<spring-security-jwt.version>1.0.10.RELEASE</spring-security-jwt.version>
+		
+		<jasperreports.version>6.5.1</jasperreports.version>
+        <jasperreports-functions.version>6.5.1</jasperreports-functions.version>
+        <jasperreports-fonts.version>6.0.0</jasperreports-fonts.version>
 	</properties>
 
 	<dependencies>
@@ -36,6 +40,23 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
+		
+		<!-- Envio de e-mail -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+		
+		<!-- Thymeleaf -->
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-java8time</artifactId>
+        </dependency>
 		
 		<!-- OAuth2 -->
 		<dependency>
@@ -82,6 +103,7 @@
 			<artifactId>commons-lang3</artifactId>
 		</dependency>
 		
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -102,6 +124,25 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
+		
+		<!-- JasperReports -->
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>${jasperreports.version}</version>
+        </dependency>
+                
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports-functions</artifactId>
+            <version>${jasperreports-functions.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports-fonts</artifactId>
+            <version>${jasperreports-fonts.version}</version>
+        </dependency>
 	</dependencies>
 
 	<build>
@@ -112,5 +153,12 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<repositories>
+        <repository>
+            <id>jr-ce-releases</id>
+            <url>http://jaspersoft.artifactoryonline.com/jaspersoft/jr-ce-releases</url>
+        </repository>
+    </repositories>
 
 </project>

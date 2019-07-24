@@ -36,7 +36,7 @@ public class PessoaResource {
 	
 	@GetMapping
 	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_PESSOA') and #oauth2.hasScope('read')")
-	public ResponseEntity<Page<Pessoa>> listar(@RequestParam(required = false, defaultValue = "%") String nome, Pageable pageable) {
+	public ResponseEntity<Page<Pessoa>> listar(@RequestParam(required = false, defaultValue = "") String nome, Pageable pageable) {
 		return ResponseEntity.ok().body(pessoaRepository.findByNomeContaining(nome, pageable));
 	}
 	
@@ -44,8 +44,9 @@ public class PessoaResource {
 	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_PESSOA') and #oauth2.hasScope('read')")
 	public ResponseEntity<Pessoa> buscarPeloCodigo(@PathVariable Long codigo) {
 		Optional<Pessoa> pessoa = pessoaRepository.findById(codigo);
-		
-		return !pessoa.isPresent() ? ResponseEntity.ok(pessoa.get()) : ResponseEntity.notFound().build();
+		System.out.println("Código: " + codigo);
+		System.out.println("Nome: " + pessoa.get().getNome());
+		return pessoa.isPresent() ? ResponseEntity.ok(pessoa.get()) : ResponseEntity.notFound().build();
 	}
 	
 	@PostMapping
