@@ -143,6 +143,14 @@
             <artifactId>jasperreports-fonts</artifactId>
             <version>${jasperreports-fonts.version}</version>
         </dependency>
+        
+        <!-- para baixar o hibernate metamodel - padrão é desativado -->
+        <!--  
+        <dependency>
+        	<groupId>org.hibernate</groupId>
+        	<artifactId>hibernate-jpamodelgen</artifactId>
+        </dependency>
+        -->
 	</dependencies>
 
 	<build>

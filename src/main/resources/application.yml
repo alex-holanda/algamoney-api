@@ -15,4 +15,7 @@ spring:
     show-sql: true
     open-in-view: true
   flyway:
-    enabled: false
+    enabled: true
+  loggin:
+    level:
+      com.algaworks.algamoney.api: DEBUG

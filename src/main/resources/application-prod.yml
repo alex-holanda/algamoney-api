@@ -7,4 +7,4 @@ spring:
     password: nordsmho6jxlwx0n
 
   flyway:
-    enabled: false
+    enabled: true
