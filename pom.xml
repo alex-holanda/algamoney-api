@@ -25,6 +25,8 @@
 		<jasperreports.version>6.5.1</jasperreports.version>
         <jasperreports-functions.version>6.5.1</jasperreports-functions.version>
         <jasperreports-fonts.version>6.0.0</jasperreports-fonts.version>
+        
+        <aws-java-jdk.version>1.11.597</aws-java-jdk.version>
 	</properties>
 
 	<dependencies>
@@ -142,6 +144,13 @@
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports-fonts</artifactId>
             <version>${jasperreports-fonts.version}</version>
+        </dependency>
+        
+        <!-- Amazon S3 -->
+        <dependency>
+        	<groupId>com.amazonaws</groupId>
+        	<artifactId>aws-java-sdk</artifactId>
+        	<version>${aws-java-jdk.version}</version>
         </dependency>
         
         <!-- para baixar o hibernate metamodel - padrão é desativado -->

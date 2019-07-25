@@ -1,5 +1,6 @@
 package com.algaworks.algamoney.api.resources;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +24,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.algaworks.algamoney.api.dto.Anexo;
 import com.algaworks.algamoney.api.dto.LancamentoEstatisticaCategoria;
 import com.algaworks.algamoney.api.dto.LancamentoEstatisticaDia;
 import com.algaworks.algamoney.api.model.Lancamento;
@@ -32,6 +35,7 @@ import com.algaworks.algamoney.api.repository.filter.LancamentoFilter;
 import com.algaworks.algamoney.api.repository.projection.ResumoLancamento;
 import com.algaworks.algamoney.api.resources.helper.AdicionarLocation;
 import com.algaworks.algamoney.api.service.LancamentoService;
+import com.algaworks.algamoney.api.storage.S3;
 
 @RestController
 @RequestMapping("/lancamentos")
@@ -42,6 +46,17 @@ public class LancamentoResource {
 
 	@Autowired
 	private LancamentoService lancamentoService;
+	
+	@Autowired
+	private S3 s3;
+	
+	@PostMapping("/anexo")
+	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_LANCAMENTO') and #oauth2.hasScope('write')")
+	public ResponseEntity<Anexo> uploadAnexo(@RequestParam MultipartFile anexo) throws IOException {
+		String nome = s3.salvarTemporariamente(anexo);
+		
+		return ResponseEntity.ok().body(new Anexo(nome, s3.configurarUrl(nome)));
+	}
 	
 	@GetMapping("/relatorios/por-pessoa")
 	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO') and #oauth2.hasScope('read')")
@@ -119,3 +134,10 @@ public class LancamentoResource {
 		}
 	}
 }
+
+
+//SALVAR ARQUIVO
+//OutputStream out = new FileOutputStream("C:/AppStore/anexo--" + anexo.getOriginalFilename());
+//
+//out.write(anexo.getBytes());
+//out.close();
