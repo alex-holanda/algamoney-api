@@ -1,6 +1,5 @@
 package com.algaworks.algamoney.api.service;
 
-import java.io.InputStream;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -13,6 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.InputStreamSource;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -92,9 +93,12 @@ public class LancamentoService {
 		parametros.put("DT_FIM", Date.valueOf(fim));
 		parametros.put("REPORT_LOCALE", new Locale("pt", "BR"));
 		
-		InputStream inputStream = this.getClass().getResourceAsStream("/relatorios/lancamentos-por-pessoa.jasper");
+		InputStreamSource inputStream = new ClassPathResource("/relatorios/lancamentos-por-pessoa.jasper");
 		
-		JasperPrint jasperPrint = JasperFillManager.fillReport(inputStream, parametros, new JRBeanCollectionDataSource(dados));
+		JasperPrint jasperPrint = JasperFillManager.fillReport(
+				inputStream.getInputStream(),
+				parametros,
+				new JRBeanCollectionDataSource(dados));
 		
 		return JasperExportManager.exportReportToPdf(jasperPrint);
 	}

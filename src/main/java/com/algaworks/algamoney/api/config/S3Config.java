@@ -20,10 +20,10 @@ public class S3Config {
 
 	private static final String BUCKET_NAME = "ah-algamoney-arquivos";
 	
-//	TODO: CONFIGURAR ACCESS_KEY
+//	TODO: CONFIGURAR S3_ACCESS_KEY
 	private static final String ACCESS_KEY = System.getenv("S3_ACCESS_KEY");
 	
-//	TODO: CONFIGURAR SECRET_KEY
+//	TODO: CONFIGURAR S3_SECRET_KEY
 	private static final String SECRET_KEY = System.getenv("S3_SECRET_KEY");
 	
 	@Bean

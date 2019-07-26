@@ -10,6 +10,12 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 @Configuration
 public class MailConfig {
 
+//	TODO: CONFIGURAR EMAIL_USERNAME
+	private static final String USERNAME = System.getenv("EMAIL_USERNAME");
+	
+//	TODO: CONFIGURAR EMAIL_PASSWORD
+	private static final String PASSWORD = System.getenv("EMAIL_PASSWORD");
+	
 	@Bean
 	public JavaMailSender javaMailSender() {
 		Properties props = new Properties();
@@ -24,8 +30,8 @@ public class MailConfig {
 		mailSender.setJavaMailProperties(props);
 		mailSender.setHost("smtp.gmail.com");
 		mailSender.setPort(587);
-		mailSender.setUsername(System.getenv("EMAIL_USERNAME"));
-		mailSender.setPassword(System.getenv("EMAIL_PASSWORD"));
+		mailSender.setUsername(USERNAME);
+		mailSender.setPassword(PASSWORD);
 		
 		return mailSender;
 	}
