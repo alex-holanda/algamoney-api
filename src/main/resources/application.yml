@@ -1,7 +1,6 @@
 spring:
   profiles:
-    active: oauth-security
-#    active: basic-security
+    active: basic-security
   datasource:
     url: jdbc:mysql://localhost/algamoneyapi?createDatabaseIfNotExist=true&useSSL=false&useTimezone=true&serverTimezone=America/Sao_Paulo  
     username: root
@@ -16,6 +15,6 @@ spring:
     open-in-view: true
   flyway:
     enabled: true
-  loggin:
-    level:
-      com.algaworks.algamoney.api: DEBUG
+logging:
+  level:
+    com.algaworks.algamoney.api: DEBUG

@@ -16,6 +16,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.InputStreamSource;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.algaworks.algamoney.api.dto.LancamentoEstatisticaPessoa;
 import com.algaworks.algamoney.api.mail.Mailer;
@@ -26,6 +27,7 @@ import com.algaworks.algamoney.api.repository.LancamentoRepository;
 import com.algaworks.algamoney.api.repository.PessoaRepository;
 import com.algaworks.algamoney.api.repository.UsuarioRepository;
 import com.algaworks.algamoney.api.service.exception.PessoaInexistenteEOuInativaException;
+import com.algaworks.algamoney.api.storage.S3;
 
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -46,10 +48,14 @@ public class LancamentoService {
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+
+	@Autowired
+	private S3 s3;
 	
 	private static final String DESTINATARIOS = "ROLE_PESQUISAR_LANCAMENTO";
 	
 	private static final Logger logger = LoggerFactory.getLogger(LancamentoService.class);
+	
 	
 //	@Scheduled(fixedDelay = 1000 * 60 * 30)
 	@Scheduled(cron = "0 0 6 * * *")
@@ -110,6 +116,10 @@ public class LancamentoService {
 			throw new PessoaInexistenteEOuInativaException();
 		}
 		
+		if (StringUtils.hasText(lancamento.getAnexo())) {
+			s3.salvar(lancamento.getAnexo());
+		}
+		
 		return lancamentoRepository.save(lancamento);
 	}
 
@@ -118,6 +128,14 @@ public class LancamentoService {
 		
 		if (!lancamento.getPessoa().equals(lancamentoSalvo.getPessoa())) {
 			validarPessoa(lancamento);
+		}
+		
+		if (StringUtils.isEmpty(lancamento.getAnexo()) && StringUtils.hasText(lancamento.getAnexo()) ) {
+			s3.remover(lancamentoSalvo.getAnexo());
+		} else if (StringUtils.hasText(lancamento.getAnexo())
+				&& !lancamento.getAnexo().equals(lancamentoSalvo.getAnexo())) {
+			
+			s3.substituir(lancamentoSalvo.getAnexo(), lancamento.getAnexo());
 		}
 		
 		BeanUtils.copyProperties(lancamento, lancamentoSalvo, "codigo");
