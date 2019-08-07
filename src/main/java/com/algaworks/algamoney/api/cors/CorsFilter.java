@@ -19,8 +19,10 @@ import org.springframework.stereotype.Component;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CorsFilter implements Filter {
 
-	private String origemPermitida =  "https://algamoney-ui-curso.herokuapp.com"; //TODO : configurar prod
-
+//	TODO : configurar prod
+//	private String origemPermitida =  "https://algamoney-ui-curso.herokuapp.com"; 
+	private String origemPermitida =  "http://localhost:4200";
+	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {

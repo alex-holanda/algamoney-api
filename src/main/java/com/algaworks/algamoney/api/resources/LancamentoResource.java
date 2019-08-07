@@ -65,21 +65,21 @@ public class LancamentoResource {
 				@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate fim
 			) throws Exception {
 		
-		byte[] relatorio = lancamentoService.relatorioPorPessoa(LocalDate.of(2016, 1, 1), LocalDate.of(2019, 7, 20));
+		byte[] relatorio = lancamentoService.relatorioPorPessoa(inicio, fim);
 
 		return ResponseEntity.ok()
 							 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_PDF_VALUE)
 							 .body(relatorio);
 	}
 	
-	@GetMapping("/estatistica/por-categoria")
+	@GetMapping("/estatisticas/por-categoria")
 	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO') and #oauth2.hasScope('read')")
 	public List<LancamentoEstatisticaCategoria> porCategoria() {
 		
 		return this.lancamentoRepository.porCategoria(LocalDate.now());
 	}
 	
-	@GetMapping("/estatistica/por-dia")
+	@GetMapping("/estatisticas/por-dia")
 	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO') and #oauth2.hasScope('read')")
 	public List<LancamentoEstatisticaDia> porDia() {
 		
