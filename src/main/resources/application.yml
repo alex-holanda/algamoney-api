@@ -16,6 +16,12 @@ spring:
     open-in-view: true
   flyway:
     enabled: true
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-request-size: 15MB
+      max-file-size: 15MB
 logging:
   level:
     com.algaworks.algamoney.api: DEBUG

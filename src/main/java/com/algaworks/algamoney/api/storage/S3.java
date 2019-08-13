@@ -91,7 +91,7 @@ public class S3 {
 	}
 	
 	public String configurarUrl(String objeto) {
-		return "\\\\" + BUCKET_NAME + ".s3.amazonaws.com/" + objeto;
+		return "https://" + BUCKET_NAME + ".s3.amazonaws.com/" + objeto;
 	}
 	
 	private String gerarNomeUnico(String originalFileName) {
