@@ -21,7 +21,7 @@ public class CorsFilter implements Filter {
 
 //	TODO : configurar prod
 //	private final String origemPermitida =  "https://algamoney-ui-curso.herokuapp.com"; 
-	private String origemPermitida =  "holanda.eti.br";
+	private String origemPermitida =  "http://www.algamoney.holanda.eti.br";
 	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
