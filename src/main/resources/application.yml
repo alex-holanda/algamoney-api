@@ -22,6 +22,9 @@ spring:
       file-size-threshold: 2KB
       max-request-size: 15MB
       max-file-size: 15MB
+algamoney:  origem-permitida: http://localhost:4200
+#  origem-permitida: http://www.algamoney.holanda.eti.br
+#  origem-permitida: https://algamoney-ui-curso.herokuapp.com
 logging:
   level:
     com.algaworks.algamoney.api: DEBUG

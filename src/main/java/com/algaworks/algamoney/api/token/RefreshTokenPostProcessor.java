@@ -51,7 +51,7 @@ public class RefreshTokenPostProcessor implements ResponseBodyAdvice<OAuth2Acces
 		Cookie refreshTokenCookie = new Cookie("refreshToken", refreshToken);
 		
 		refreshTokenCookie.setHttpOnly(true);
-		refreshTokenCookie.setSecure(true); // TODO : mudar para true em produção
+		refreshTokenCookie.setSecure(false); // TODO : mudar para true em produção
 		refreshTokenCookie.setPath(req.getContextPath() + "/oauth/token");
 		refreshTokenCookie.setMaxAge(2592000);
 		

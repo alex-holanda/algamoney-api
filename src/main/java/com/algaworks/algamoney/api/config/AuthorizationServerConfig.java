@@ -12,9 +12,11 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import org.springframework.web.filter.CorsFilter;
 
 import com.algaworks.algamoney.api.config.token.CustomTokenEnhancer;
 
@@ -29,6 +31,14 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Autowired
 	private UserDetailsService userDetailsService;
 	
+	@Autowired
+	private CorsFilter corsFilter;
+	
+	@Override
+	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+		security.addTokenEndpointAuthenticationFilter(this.corsFilter);
+	}
+	
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.inMemory()
@@ -36,8 +46,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 					.secret("$2a$10$urau5AFuZeJKJvPbdO9cpeGpDKPIUG4lUCe8Qj/NwalNNVUNoCezO")  //@ngul@r0
 					.scopes("read", "write")
 					.authorizedGrantTypes("password", "refresh_token")
-					.accessTokenValiditySeconds(1800)
-					.refreshTokenValiditySeconds(3600)
+					.accessTokenValiditySeconds(5)
+					.refreshTokenValiditySeconds(30)
 				.and()
 					.withClient("mobile")
 					.secret("$2a$10$uhIV25ITsfkupzJXcdiB/O4xrEidF1WBRnIl9E/YZHokV3lhTsO9K") // m0b1l30
