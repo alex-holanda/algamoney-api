@@ -26,7 +26,7 @@
         <jasperreports-functions.version>6.5.1</jasperreports-functions.version>
         <jasperreports-fonts.version>6.0.0</jasperreports-fonts.version>
         
-        <aws-java-jdk.version>1.11.597</aws-java-jdk.version>
+        <aws-java-jdk.version>1.11.714</aws-java-jdk.version>
 	</properties>
 
 	<dependencies>
@@ -116,11 +116,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-configuration-processor</artifactId>
-			<optional>true</optional>
-		</dependency>
 		
 		<!-- Configurar property customizada na aplicação -->
 		<dependency>
@@ -149,14 +144,13 @@
         </dependency>
         
         <!-- Amazon S3 -->
-        <dependency>
-        	<groupId>com.amazonaws</groupId>
-        	<artifactId>aws-java-sdk</artifactId>
-        	<version>${aws-java-jdk.version}</version>
-        </dependency>
+		<dependency>
+		    <groupId>com.amazonaws</groupId>
+		    <artifactId>aws-java-sdk-s3</artifactId>
+		    <version>${aws-java-jdk.version}</version>
+		</dependency>
         
         <!-- para baixar o hibernate metamodel - padrão é desativado -->
-         
 <!--         <dependency> -->
 <!--         	<groupId>org.hibernate</groupId> -->
 <!--         	<artifactId>hibernate-jpamodelgen</artifactId> -->

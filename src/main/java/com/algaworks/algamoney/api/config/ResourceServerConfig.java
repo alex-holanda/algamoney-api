@@ -52,7 +52,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		config.addAllowedHeader("*");
 		config.addAllowedMethod("*");
 		config.setMaxAge(3600L);
-		config.setAllowedOrigins(Arrays.asList("https://holanda.eti.br", "http://localhost"));
+		config.setAllowedOrigins(Arrays.asList("https://holanda.eti.br", "http://localhost:4200"));
 		
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", config);
